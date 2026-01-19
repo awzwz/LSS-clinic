@@ -1,0 +1,390 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
+const API_BASE =
+    process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+
+export default function HomePage() {
+    const [status, setStatus] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        setLoading(true);
+        setStatus(null);
+
+        const formData = new FormData(event.currentTarget);
+        const payload = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(`${API_BASE}/api/appointments`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error("Ошибка отправки");
+            }
+
+            const data = (await response.json()) as { message: string };
+            setStatus(data.message);
+            event.currentTarget.reset();
+        } catch (error) {
+            setStatus(
+                "Не удалось отправить заявку. Пожалуйста, попробуйте позже или позвоните нам."
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return (
+        <main>
+
+            <section className="hero">
+                <div className="hero-overlay" />
+                <div className="container hero-content">
+                    <div className="hero-card">
+                        <span className="badge">Лаборатория современной стоматологии</span>
+                        <h1 className="hero-title">Лечение без боли и страха</h1>
+                        <p className="hero-subtitle">
+                            Современные методы, честные цены и забота о каждом пациенте в
+                            самом центре Астаны.
+                        </p>
+                        <div className="hero-actions">
+                            <a
+                                className="button primary"
+                                href="https://api.whatsapp.com/send/?phone=77020073400&text=Здравствуйте%21%0A%0AПишу+из+приложения+2ГИС.%0A%0A&type=phone_number&app_absent=0"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Записаться в WhatsApp
+                            </a>
+                            <a className="button ghost" href="tel:+77020073400">
+                                Позвонить
+                            </a>
+                        </div>
+                        <div className="hero-stats">
+                            <div className="stat-card">
+                                <strong>10+</strong>
+                                <span>лет клинического опыта</span>
+                            </div>
+                            <div className="stat-card">
+                                <strong>Бесплатно</strong>
+                                <span>первичная консультация</span>
+                            </div>
+                            <div className="stat-card">
+                                <strong>0-0-12</strong>
+                                <span>рассрочка без переплат</span>
+                            </div>
+                            <div className="stat-card">
+                                <strong>Современно</strong>
+                                <span>точная диагностика</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="container" id="benefits">
+                <h2 className="section-title">Почему выбирают LSS Clinic</h2>
+                <p className="section-subtitle">
+                    Наша команда заботится о вашем здоровье и комфорте: прозрачные
+                    рекомендации, безболезненное лечение и современные технологии.
+                </p>
+                <div className="benefits-grid">
+                    {[
+                        "10+ лет опыта",
+                        "Бесплатная консультация",
+                        "Рассрочка 0-0-12",
+                        "Современные методы",
+                        "Честные цены без навязываний"
+                    ].map((benefit) => (
+                        <div className="benefit-card" key={benefit}>
+                            <span>{benefit}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="container" id="services-list">
+                <h2 className="section-title">Услуги</h2>
+                <p className="section-subtitle">
+                    Полный спектр стоматологических услуг для взрослых: от диагностики до
+                    сложных восстановительных процедур.
+                </p>
+                <div className="services-grid">
+                    {[
+                        "Ортодонтия (самолигирующие брекеты)",
+                        "Ортопедия (коронки и протезирование)",
+                        "Хирургия / удаление",
+                        "Имплантация",
+                        "Пародонтология",
+                        "Гнатология",
+                        "Диагностика (прицельный снимок)",
+                        "Неотложная помощь взрослым"
+                    ].map((service) => (
+                        <div className="service-card" key={service}>
+                            <h3>{service}</h3>
+                            <p className="notice">
+                                Подробные рекомендации и индивидуальный план лечения.
+                            </p>
+                        </div>
+                    ))}
+                </div>
+                <div className="section-cta">
+                    <Link className="button secondary" href="/services">
+                        Все услуги и категории
+                    </Link>
+                    <Link className="button primary" href="#appointment">
+                        Бесплатная консультация
+                    </Link>
+                </div>
+            </section>
+
+            <section className="container" id="doctors">
+                <h2 className="section-title">Наши врачи</h2>
+                <p className="section-subtitle">
+                    Команда LSS Clinic — эксперты, которые бережно сопровождают пациента на
+                    каждом этапе лечения.
+                </p>
+                <div className="doctors-grid">
+                    <article className="doctor-card">
+                        <div className="doctor-photo doctor-almira" />
+                        <h3>Нарымбаева Альмира Манатовна</h3>
+                        <p className="notice">Врач стоматолог-терапевт · стаж 3+ года</p>
+                        <p>
+                            Специализируется на лечении кариеса, реставрациях и бережной работе
+                            с чувствительными пациентами.
+                        </p>
+                        <Link className="link" href="/doctors#almira">
+                            Подробнее о враче
+                        </Link>
+                    </article>
+                    <article className="doctor-card">
+                        <div className="doctor-photo doctor-urstem" />
+                        <h3>Кенжалин Урстем Берлибекович</h3>
+                        <p className="notice">
+                            Врач стоматолог, ортопед, хирург · стаж 25+ лет
+                        </p>
+                        <p>
+                            Проводит сложные ортопедические и хирургические вмешательства с
+                            акцентом на комфорт и эстетику.
+                        </p>
+                        <Link className="link" href="/doctors#urstem">
+                            Подробнее о враче
+                        </Link>
+                    </article>
+                </div>
+            </section>
+
+            <section className="container" id="reviews">
+                <h2 className="section-title">Отзывы пациентов</h2>
+                <p className="section-subtitle">
+                    Мы ценим доверие и открыто делимся отзывами пациентов. Источник —
+                    2ГИС.
+                </p>
+                <div className="reviews-grid">
+                    {[
+                        {
+                            text: "Очень внимательная команда и спокойная атмосфера. Лечение прошло без боли, всё объяснили.",
+                            author: "Айгерим К.",
+                            source: "2ГИС"
+                        },
+                        {
+                            text: "Профессиональный подход, современное оборудование и честные рекомендации.",
+                            author: "Данияр С.",
+                            source: "2ГИС"
+                        },
+                        {
+                            text: "Удобная запись, администратор на связи, врачи с большим опытом.",
+                            author: "Асель М.",
+                            source: "2ГИС"
+                        }
+                    ].map((review) => (
+                        <article className="review-card" key={review.author}>
+                            <p>“{review.text}”</p>
+                            <div className="review-meta">
+                                <strong>{review.author}</strong>
+                                <span>{review.source}</span>
+                            </div>
+                        </article>
+                    ))}
+                </div>
+            </section>
+
+            <section className="container" id="about">
+                <h2 className="section-title">О клинике</h2>
+                <p className="section-subtitle">
+                    LSS Clinic — лаборатория современной стоматологии. Мы строим отношения
+                    на честности, прозрачности и качестве лечения.
+                </p>
+                <div className="about-grid">
+                    {[
+                        {
+                            title: "Комфорт и безопасность",
+                            description:
+                                "Стерильный кабинет, современные материалы и бережное отношение."
+                        },
+                        {
+                            title: "Честные рекомендации",
+                            description:
+                                "Объясняем каждый этап, составляем понятный план лечения."
+                        },
+                        {
+                            title: "Технологии и опыт",
+                            description:
+                                "Диагностика, микроскоп и контроль качества на каждом шаге."
+                        }
+                    ].map((item) => (
+                        <div className="about-card" key={item.title}>
+                            <h3>{item.title}</h3>
+                            <p className="notice">{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="container" id="location">
+                <h2 className="section-title">Контакты и карта</h2>
+                <p className="section-subtitle">
+                    Мы находимся в центре Астаны. Откройте карту 2GIS или проложите маршрут
+                    прямо сейчас.
+                </p>
+                <div className="location-grid">
+                    <div>
+                        <div className="info-card">
+                            <strong>Адрес клиники</strong>
+                            <span>г. Астана, пр. Аль-Фараби 15</span>
+                            <span className="notice">
+                                График работы: ежедневно 09:00 – 21:00.
+                            </span>
+                        </div>
+                        <div className="info-card">
+                            <strong>Навигация</strong>
+                            <a
+                                className="button secondary"
+                                href="https://2gis.kz/astana/firm/70000001109724398?m=71.450015%2C51.095411%2F16"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                Открыть в 2GIS
+                            </a>
+                        </div>
+                        <div className="info-card">
+                            <strong>Связаться</strong>
+                            <a href="tel:+77020073400">+7‒702‒007‒34‒00</a>
+                            <a
+                                href="https://api.whatsapp.com/send/?phone=77020073400&text=Здравствуйте%21%0A%0AПишу+из+приложения+2ГИС.%0A%0A&type=phone_number&app_absent=0"
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    <iframe
+                        className="map-frame"
+                        title="LSS Clinic на карте"
+                        src="https://2gis.kz/astana/firm/70000001109724398?m=71.450015%2C51.095411%2F16"
+                        loading="lazy"
+                    />
+                </div>
+            </section>
+
+            <section className="container cta" id="cta">
+                <div className="cta-card">
+                    <h2>Бесплатная консультация</h2>
+                    <p className="notice">
+                        Оставьте заявку или напишите в WhatsApp — администратор ответит в
+                        ближайшее время.
+                    </p>
+                    <div className="hero-actions">
+                        <a
+                            className="button primary"
+                            href="https://api.whatsapp.com/send/?phone=77020073400&text=Здравствуйте%21%0A%0AПишу+из+приложения+2ГИС.%0A%0A&type=phone_number&app_absent=0"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Записаться в WhatsApp
+                        </a>
+                        <a className="button secondary" href="tel:+77020073400">
+                            Позвонить
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section className="container" id="appointment">
+                <h2 className="section-title">Онлайн-заявка</h2>
+                <p className="section-subtitle">
+                    Заполните форму, и администратор свяжется с вами в ближайшее время.
+                </p>
+                <div className="form-card">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-grid">
+                            <div>
+                                <label htmlFor="name">Имя и фамилия</label>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    placeholder="Введите имя"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="phone">Телефон</label>
+                                <input
+                                    id="phone"
+                                    name="phone"
+                                    placeholder="+7 700 000 00 00"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="email">Email (необязательно)</label>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    type="email"
+                                    placeholder="name@example.com"
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="preferred_date">Желаемая дата</label>
+                                <input
+                                    id="preferred_date"
+                                    name="preferred_date"
+                                    type="date"
+                                />
+                            </div>
+                        </div>
+                        <div style={{ marginTop: "16px" }}>
+                            <label htmlFor="message">Комментарий</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Опишите проблему или желаемую услугу"
+                            />
+                        </div>
+                        <div className="form-actions" style={{ marginTop: "20px" }}>
+                            <button className="button primary" type="submit" disabled={loading}>
+                                {loading ? "Отправка..." : "Отправить заявку"}
+                            </button>
+                            <span className="notice">
+                                Нажимая кнопку, вы соглашаетесь на обработку персональных данных.
+                            </span>
+                        </div>
+                        {status ? <p style={{ marginTop: "12px" }}>{status}</p> : null}
+                    </form>
+                </div>
+            </section>
+
+        </main>
+    );
+}
