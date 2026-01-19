@@ -869,6 +869,168 @@ main {
   color: #555;
 }
 
+/* === MOBILE NAVIGATION === */
+.mobile-menu-button {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  gap: 6px;
+  z-index: 1001;
+}
+
+.hamburger-line {
+  width: 28px;
+  height: 3px;
+  background: #1a1a1a;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-line.open:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.hamburger-line.open:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-line.open:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100vh;
+  background: #1a1a1a;
+  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.mobile-menu.open {
+  right: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-header .logo {
+  font-family: var(--font-bebas);
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.mobile-menu-close {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.mobile-menu-close:active {
+  transform: scale(0.9);
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  gap: 0;
+  flex: 1;
+}
+
+.mobile-nav-links a {
+  font-family: var(--font-bebas);
+  font-size: 2rem;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-nav-links a:active,
+.mobile-nav-links a.active {
+  color: #fff;
+  padding-left: 10px;
+}
+
+.mobile-menu-footer {
+  padding: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mobile-phone-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  gap: 8px;
+}
+
+.mobile-phone-link .phone {
+  font-family: var(--font-bebas);
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.mobile-phone-link .cta {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mobile-socials {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.mobile-socials a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.mobile-socials a:active {
+  color: #fff;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .hero-content-dual {
@@ -892,6 +1054,7 @@ main {
 
   .hero-form-side {
     justify-content: center;
+    padding-right: 0;
   }
 
   .badge-premium {
@@ -906,17 +1069,376 @@ main {
 
 @media (max-width: 768px) {
 
+  /* Show mobile menu button */
+  .mobile-menu-button {
+    display: flex;
+  }
+
+  /* Hide desktop navigation */
   .nav-links,
   .header-top {
     display: none;
   }
 
+  /* Hide phone number completely on mobile */
+  .button-call {
+    display: none;
+  }
+
+  /* Container optimization */
+  .container {
+    width: 90vw;
+  }
+
+  /* Section spacing */
   .section-padding {
-    padding: 80px 0;
+    padding: 60px 0;
+  }
+
+  .section-header-centered {
+    margin-bottom: 50px;
+  }
+
+  /* Hero section */
+  .hero {
+    min-height: auto;
+    padding: 60px 0;
   }
 
   .hero-title-main {
-    font-size: 3.5rem;
+    font-size: 3rem;
+    margin-bottom: 20px;
+  }
+
+  .hero-description {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+  }
+
+  .hero-benefits-list {
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+  }
+
+  .benefit-item-inline strong {
+    font-size: 1.5rem;
+  }
+
+  .benefit-item-inline span {
+    font-size: 0.7rem;
+  }
+
+  .hero-actions-main {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions-main .button {
+    width: 100%;
+  }
+
+  .quick-booking {
+    padding: 30px;
+    max-width: 100%;
+  }
+
+  .quick-booking h3 {
+    font-size: 1.8rem;
+  }
+
+  /* Services grid */
+  .services-grid-redesign {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .service-card-new {
+    padding: 40px 24px;
+  }
+
+  .service-card-new h3 {
+    font-size: 1.8rem;
+  }
+
+  /* Section titles */
+  .section-title-alt {
+    font-size: 2.5rem;
+  }
+
+  .section-tag {
+    font-size: 0.7rem;
+  }
+
+  /* Buttons */
+  .button {
+    padding: 14px 28px;
+    font-size: 0.8rem;
+  }
+
+  .button.primary-lg,
+  .button.outline-lg {
+    padding: 16px 32px;
+    font-size: 0.85rem;
+  }
+
+  .section-cta {
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+  }
+
+  .section-cta .button {
+    width: 100%;
+  }
+
+  /* Doctors and reviews */
+  .doctors-grid,
+  .reviews-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .doctor-photo {
+    height: 400px;
+  }
+
+  .review-card {
+    padding: 30px;
+  }
+
+  .review-card p {
+    font-size: 1.1rem;
+  }
+
+  /* Forms */
+  .booking-form-mini input,
+  .booking-form-mini select,
+  .booking-form-mini textarea {
+    padding: 16px 20px;
+    font-size: 16px;
+    /* Prevents zoom on iOS */
+  }
+
+  /* Info cards */
+  .info-card {
+    padding: 30px;
+  }
+
+  .info-card strong {
+    font-size: 1.2rem;
+  }
+
+  .info-card span,
+  .info-card a {
+    font-size: 1rem;
+  }
+
+  /* Map */
+  .map-container {
+    min-height: 350px;
+    border-radius: 24px;
+  }
+
+  /* Header adjustments */
+  .nav-main {
+    padding: 16px 0;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+
+  /* Mobile Footer Redesign */
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    text-align: center;
+  }
+
+  .footer-brand {
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-brand .logo {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .footer-bio {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+
+  .footer-links-col {
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .footer-links-col h4 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: #fff;
+  }
+
+  .footer-links-col ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+  }
+
+  .footer-links-col li {
+    margin: 0;
+  }
+
+  .footer-links-col a {
+    font-size: 0.95rem;
+    padding: 8px 0;
+    display: inline-block;
+    transition: all 0.3s ease;
+  }
+
+  .footer-contact-col {
+    padding: 20px 0;
+  }
+
+  .footer-contact-col h4 {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+  }
+
+  .footer-contact-col p {
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .footer-phone {
+    font-size: 1.6rem !important;
+    display: block;
+    margin: 16px 0;
+    color: #fff !important;
+  }
+
+  .footer-contact-col .button {
+    margin-top: 20px;
+    padding: 14px 32px;
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom {
+    padding: 20px 0;
+    margin-top: 20px;
+  }
+
+  .footer-bottom p {
+    font-size: 0.8rem;
+    line-height: 1.5;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+
+  /* Even smaller hero text */
+  .hero-title-main {
+    font-size: 2.5rem;
+  }
+
+  .hero-description {
+    font-size: 1rem;
+  }
+
+  /* Benefits in single column */
+  .hero-benefits-list {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
+
+  /* Smaller section titles */
+  .section-title-alt {
+    font-size: 2rem;
+  }
+
+  /* Service cards more compact */
+  .service-card-new {
+    padding: 30px 20px;
+  }
+
+  .service-card-new h3 {
+    font-size: 1.6rem;
+  }
+
+  /* Doctor photos smaller */
+  .doctor-photo {
+    height: 300px;
+  }
+
+  /* Review cards */
+  .review-card {
+    padding: 24px;
+  }
+
+  .review-card p {
+    font-size: 1rem;
+  }
+
+  /* Quick booking form */
+  .quick-booking {
+    padding: 24px;
+  }
+
+  .quick-booking h3 {
+    font-size: 1.5rem;
+  }
+
+  /* Map smaller */
+  .map-container {
+    min-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Extra small devices */
+  .container {
+    width: 92vw;
+  }
+
+  .section-padding {
+    padding: 50px 0;
+  }
+
+  .hero {
+    padding: 40px 0;
+  }
+
+  .hero-title-main {
+    font-size: 2.2rem;
+  }
+
+  .section-title-alt {
+    font-size: 1.8rem;
+  }
+
+  .service-card-new h3 {
+    font-size: 1.5rem;
+  }
+
+  .button-call .phone {
+    font-size: 1rem;
+  }
+
+  .logo {
+    font-size: 1.3rem;
   }
 }
 
