@@ -1253,6 +1253,11 @@ main {
   .hero-text-side {
     align-items: center;
     padding-left: 0;
+    text-align: center;
+  }
+
+  .hero-title-main {
+    text-align: center;
   }
 
   .hero-benefits-list {
@@ -1454,6 +1459,11 @@ main {
   /* Header adjustments */
   .nav-main {
     padding: 16px 0;
+    justify-content: space-between;
+  }
+
+  .logo-link {
+    margin-right: auto;
   }
 
   .logo {
@@ -1462,10 +1472,12 @@ main {
 
   .logo-image {
     max-height: 45px;
+    width: auto;
   }
 
   .logo-image-mobile {
     max-height: 40px;
+    width: auto;
   }
 }
 
