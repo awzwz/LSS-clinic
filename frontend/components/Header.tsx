@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -42,13 +41,17 @@ export default function Header() {
             </div>
             <div className="container nav-main">
                 <Link href="/" className="logo-link">
-                    <Image
+                    <img
                         src="/logo.png"
                         alt="LSS Clinic"
-                        width={180}
-                        height={60}
                         className="logo-image"
-                        priority
+                        onError={(e) => {
+                            e.currentTarget.style.display = 'none';
+                            const textLogo = document.createElement('span');
+                            textLogo.className = 'logo';
+                            textLogo.textContent = 'LSS Clinic';
+                            e.currentTarget.parentElement?.appendChild(textLogo);
+                        }}
                     />
                 </Link>
                 <nav className="nav-links">
@@ -81,12 +84,17 @@ export default function Header() {
             <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
                 <div className="mobile-menu-header">
                     <Link href="/" className="logo-link" onClick={() => setMobileMenuOpen(false)}>
-                        <Image
+                        <img
                             src="/logo.png"
                             alt="LSS Clinic"
-                            width={150}
-                            height={50}
                             className="logo-image-mobile"
+                            onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                                const textLogo = document.createElement('span');
+                                textLogo.className = 'logo';
+                                textLogo.textContent = 'LSS Clinic';
+                                e.currentTarget.parentElement?.appendChild(textLogo);
+                            }}
                         />
                     </Link>
                     <button
