@@ -69,6 +69,127 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* === FLOATING BUTTONS === */
+.floating-buttons {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.floating-buttons.visible {
+  opacity: 1;
+}
+
+.floating-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  position: relative;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.floating-btn:active {
+  transform: scale(0.95);
+}
+
+/* Instagram Button - Gradient */
+.instagram-btn {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+}
+
+.instagram-btn:hover {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  filter: brightness(1.1);
+}
+
+/* WhatsApp Button - Green */
+.whatsapp-btn {
+  background: #25D366;
+}
+
+.whatsapp-btn:hover {
+  background: #20BA5A;
+}
+
+/* Phone Button - Blue */
+.phone-btn {
+  background: #0088cc;
+}
+
+.phone-btn:hover {
+  background: #006699;
+}
+
+/* Pulse animation for phone button */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 136, 204, 0.7);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 136, 204, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 136, 204, 0);
+  }
+}
+
+.phone-btn {
+  animation: pulse 2s infinite;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .floating-buttons {
+    right: 16px;
+    bottom: 16px;
+    gap: 12px;
+  }
+
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+  }
+
+  .floating-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-buttons {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .floating-btn {
+    width: 46px;
+    height: 46px;
+  }
+
+  .floating-btn svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -154,6 +275,30 @@ main {
   letter-spacing: 0.05em;
   color: #1a1a1a;
   line-height: 0.8;
+}
+
+.logo-link {
+  display: flex;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
+
+.logo-image {
+  height: auto;
+  width: auto;
+  max-height: 60px;
+  object-fit: contain;
+}
+
+.logo-image-mobile {
+  height: auto;
+  width: auto;
+  max-height: 50px;
+  object-fit: contain;
 }
 
 .nav-links {
@@ -403,6 +548,48 @@ main {
 
 .booking-form-mini.light-form select {
   color: #1a1a1a;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.booking-form-mini.light-form select:hover {
+  border-color: rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background: #fff;
+}
+
+.booking-form-mini.light-form select:focus {
+  outline: none;
+  border-color: var(--brand-grey);
+  box-shadow: 0 0 0 3px rgba(140, 140, 138, 0.1);
+  background: #fff;
+}
+
+/* Custom select arrow */
+.booking-form-mini.light-form select {
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23666%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E');
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+  background-size: 16px;
+  padding-right: 50px;
+}
+
+/* Select option styling */
+.booking-form-mini.light-form select option {
+  padding: 12px;
+  background: #fff;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.booking-form-mini.light-form select option:first-child {
+  color: #999;
+}
+
+.booking-form-mini.light-form select option:hover {
+  background: #f8f9fa;
 }
 
 .privacy-text {
@@ -958,16 +1145,16 @@ main {
 .mobile-nav-links {
   display: flex;
   flex-direction: column;
-  padding: 40px 30px;
+  padding: 30px 30px;
   gap: 0;
   flex: 1;
 }
 
 .mobile-nav-links a {
   font-family: var(--font-bebas);
-  font-size: 2rem;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.8);
-  padding: 20px 0;
+  padding: 16px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: all 0.3s ease;
   text-transform: uppercase;
@@ -993,20 +1180,20 @@ main {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  padding: 20px;
+  padding: 16px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
-  gap: 8px;
+  gap: 6px;
 }
 
 .mobile-phone-link .phone {
   font-family: var(--font-bebas);
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   color: #fff;
 }
 
 .mobile-phone-link .cta {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1247,6 +1434,14 @@ main {
 
   .logo {
     font-size: 1.5rem;
+  }
+
+  .logo-image {
+    max-height: 45px;
+  }
+
+  .logo-image-mobile {
+    max-height: 40px;
   }
 }
 

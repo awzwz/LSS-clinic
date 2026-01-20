@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Bebas_Neue, Montserrat, Oswald } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import FloatingButtons from "../components/FloatingButtons";
 
 const bebas = Bebas_Neue({
     weight: "400",
@@ -43,6 +44,7 @@ export default function RootLayout({
                 <Header />
                 {children}
                 <Footer />
+                <FloatingButtons />
             </body>
         </html>
     );

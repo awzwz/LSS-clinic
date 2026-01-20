@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
@@ -40,8 +41,15 @@ export default function Header() {
                 </div>
             </div>
             <div className="container nav-main">
-                <Link href="/" className="logo">
-                    LSS Clinic
+                <Link href="/" className="logo-link">
+                    <Image
+                        src="/logo.png"
+                        alt="LSS Clinic"
+                        width={180}
+                        height={60}
+                        className="logo-image"
+                        priority
+                    />
                 </Link>
                 <nav className="nav-links">
                     <Link href="/" className={pathname === "/" ? "active" : ""}>Главная</Link>
@@ -72,8 +80,14 @@ export default function Header() {
             {/* Mobile Menu Overlay */}
             <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
                 <div className="mobile-menu-header">
-                    <Link href="/" className="logo" onClick={() => setMobileMenuOpen(false)}>
-                        LSS Clinic
+                    <Link href="/" className="logo-link" onClick={() => setMobileMenuOpen(false)}>
+                        <Image
+                            src="/logo.png"
+                            alt="LSS Clinic"
+                            width={150}
+                            height={50}
+                            className="logo-image-mobile"
+                        />
                     </Link>
                     <button
                         className="mobile-menu-close"
