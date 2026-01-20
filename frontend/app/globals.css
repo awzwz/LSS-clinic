@@ -154,6 +154,13 @@ body {
   animation: pulse 2s infinite;
 }
 
+/* Disable pulse animation on mobile for better performance */
+@media (max-width: 768px) {
+  .phone-btn {
+    animation: none;
+  }
+}
+
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .floating-buttons {
@@ -165,6 +172,19 @@ body {
   .floating-btn {
     width: 50px;
     height: 50px;
+    /* Reduce box-shadow complexity for better performance */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .floating-btn:hover {
+    /* Disable hover effects on mobile */
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .floating-btn:active {
+    /* Simple active state for touch feedback */
+    transform: scale(0.95);
   }
 
   .floating-btn svg {
@@ -182,6 +202,8 @@ body {
   .floating-btn {
     width: 46px;
     height: 46px;
+    /* Further reduce shadow on small screens */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
   .floating-btn svg {
@@ -1694,6 +1716,79 @@ main {
   .prices-info-responsive {
     grid-template-columns: 1fr !important;
     gap: 20px !important;
+  }
+
+  /* === MOBILE PERFORMANCE OPTIMIZATIONS === */
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Optimize animations and transitions for mobile */
+  @media (max-width: 768px) {
+
+    /* Simplify transitions for better performance */
+    * {
+      transition-duration: 0.2s !important;
+    }
+
+    /* Disable hover effects on touch devices */
+    @media (hover: none) {
+      *:hover {
+        transform: none !important;
+      }
+    }
+
+    /* Optimize box-shadows */
+    .service-card-new,
+    .doctor-card,
+    .review-card,
+    .contact-card {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* Disable complex animations */
+    .fadeInUp,
+    .fadeIn {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+
+    /* Use GPU acceleration for transforms */
+    .floating-btn,
+    .mobile-menu,
+    .hamburger-line {
+      will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+    }
+  }
+
+  /* Additional optimizations for very small screens */
+  @media (max-width: 480px) {
+
+    /* Minimize repaints */
+    img {
+      will-change: auto;
+    }
+
+    /* Simplify shadows even more */
+    * {
+      box-shadow: none !important;
+    }
+
+    .floating-btn {
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12) !important;
+    }
   }
 
   .prices-info-responsive div {
